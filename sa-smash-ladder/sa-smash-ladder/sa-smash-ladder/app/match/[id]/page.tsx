@@ -2,9 +2,8 @@ import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import MatchRoom from '@/components/MatchRoom';
 import type { Match, Profile } from '@/lib/types';
-
 export default async function MatchPage({ params }: { params: { id: string } }) {
-  const sb = createClient();
+  const sb = await createClient();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) redirect('/');
   const { data: m } = await sb.from('matches').select('*').eq('id', params.id).maybeSingle<Match>(); // RLS: solo participantes
