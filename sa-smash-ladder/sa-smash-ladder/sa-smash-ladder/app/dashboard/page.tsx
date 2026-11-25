@@ -5,7 +5,7 @@ import Leaderboard from '@/components/Leaderboard';
 import type { Profile } from '@/lib/types';
 
 export default async function Dashboard() {
-  const sb = createClient();
+  const sb = await createClient();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) redirect('/');
   const { data: me } = await sb.from('profiles').select('*').eq('id', user.id).maybeSingle<Profile>();
