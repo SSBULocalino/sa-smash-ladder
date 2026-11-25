@@ -30,7 +30,8 @@ async function myMatch(id: string) {
 }
 
 export async function signOut() {
-  await createClient().auth.signOut();
+(await createClient()).auth.signOut();
+
   redirect('/');
 }
 
