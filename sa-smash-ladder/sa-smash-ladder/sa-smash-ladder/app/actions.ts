@@ -15,7 +15,8 @@ async function safe(fn: () => Promise<R | void>): Promise<R> {
   try { return (await fn()) ?? { ok: true }; } catch (e) { return { ok: false, error: (e as Error).message }; }
 }
 async function me() {
-  const sb = createClient();
+  const sb = await createClient();
+
   const { data: { user } } = await sb.auth.getUser();
   if (!user) throw new Error('auth');
   return { sb, user };
